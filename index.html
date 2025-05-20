@@ -42,10 +42,8 @@
         class="img-fluid rounded-circle">
     </div>
 
-    <a href="https://bootstrapmade.com/content/demo/iPortfolio/index.html"
+    <a href="https://tshahjii.github.io/portfolio/"
       class="logo d-flex align-items-center justify-content-center">
-      <!-- Uncomment the line below if you also wish to use an image logo -->
-      <!-- <img src="assets/img/logo.png" alt=""> -->
       <h1 class="sitename">Tinku Kumar Shah</h1>
     </a>
 
@@ -764,36 +762,51 @@
           </div>
 
           <div class="col-lg-7">
-            <form action="https://bootstrapmade.com/content/demo/iPortfolio/forms/contact.php" method="post"
-              class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <form action="#" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
               <div class="row gy-4">
 
+                <!-- Name Field -->
                 <div class="col-md-6">
-                  <label for="name-field" class="pb-2">Your Name</label>
-                  <input type="text" name="name" id="name-field" class="form-control" required="">
+                  <label for="name" class="pb-2">Your Name*</label>
+                  <input type="text" name="name" id="name" class="form-control" required pattern="^[A-Za-z\s]{2,50}$"
+                    title="Please enter a valid name (only letters and spaces)">
                 </div>
 
+                <!-- Email Field -->
                 <div class="col-md-6">
-                  <label for="email-field" class="pb-2">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email-field" required="">
+                  <label for="email" class="pb-2">Your Email*</label>
+                  <input type="email" name="email" id="email" class="form-control" required
+                    title="Please enter a valid email address">
                 </div>
 
+                <!-- Subject Field -->
+                <div class="col-md-6">
+                  <label for="subject" class="pb-2">Subject*</label>
+                  <input type="text" name="subject" id="subject" class="form-control" required minlength="3"
+                    maxlength="100" title="Subject must be 3 to 100 characters">
+                </div>
+
+                <!-- Phone Field -->
+                <div class="col-md-6">
+                  <label for="phone" class="pb-2">Phone*</label>
+                  <input type="tel" name="phone" id="phone" class="form-control" required pattern="[0-9]{10}"
+                    maxlength="10" title="Please enter a 10-digit valid phone number">
+                </div>
+
+                <!-- Message Field -->
                 <div class="col-md-12">
-                  <label for="subject-field" class="pb-2">Subject</label>
-                  <input type="text" class="form-control" name="subject" id="subject-field" required="">
+                  <label for="message" class="pb-2">Message*</label>
+                  <textarea name="message" id="message" rows="6" class="form-control" required minlength="10"
+                    title="Message should be at least 10 characters"></textarea>
                 </div>
 
-                <div class="col-md-12">
-                  <label for="message-field" class="pb-2">Message</label>
-                  <textarea class="form-control" name="message" rows="10" id="message-field" required=""></textarea>
-                </div>
-
+                <!-- Submit Button -->
                 <div class="col-md-12 text-center">
                   <div class="loading">Loading</div>
                   <div class="error-message"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                  <button type="submit">Send Message</button>
+                  <button type="submit" class="btn btn-primary px-4 py-2">Send Message</button>
                 </div>
 
               </div>
@@ -828,6 +841,18 @@
 
   <!-- Preloader -->
   <!-- <div id="preloader"></div> -->
+  <script>
+    document.getElementById("contactForm").onsubmit = async (e) => {
+      e.preventDefault();
+      const res = await fetch("sender.php", {
+        method: "POST",
+        body: new FormData(e.target)
+      });
+      const data = await res.json();
+      document.getElementById("response").innerText = data.message;
+    };
+  </script>
+
   <script>
     // Get DOB from the span
     const dobText = document.getElementById("dob").innerText;
